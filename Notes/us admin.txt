@@ -1,4 +1,0 @@
-us: admin
-pwd: Ideathon_2k26
-
-cs:mongodb+srv://admin:Ideathon_2k26@ideathon2k26.z4uwdxj.mongodb.net/?appName=Ideathon2k26
