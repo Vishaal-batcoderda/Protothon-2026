@@ -133,7 +133,7 @@ function Dashboard() {
           </a>
 
           <a
-            href={`${process.env.REACT_APP_API_URL}/api/export`}
+            href={`${process.env.REACT_APP_API_URL}/api/team/export`}
             className="px-4 py-3 rounded-lg bg-green-600 text-white">
             Export Excel
           </a>
