@@ -12,6 +12,11 @@ export default function StudentDashboard() {
   const [newAbstract, setNewAbstract] = useState("");
 
   const navigate = useNavigate();
+  
+  const logout = () => {
+  localStorage.removeItem("teamToken");
+  navigate("/student/login");
+};
 
   /* ================= DEADLINE LOGIC ================= */
   const deadline = new Date("2026-03-10T23:59:59");
