@@ -90,9 +90,25 @@ export default function StudentDashboard() {
           className="max-w-5xl mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10"
         >
 
-          <h1 className="text-3xl font-bold text-indigo-600 mb-8">
-            Student Dashboard
-          </h1>
+           <div className="flex justify-between items-center mb-8">
+
+  <h1 className="text-3xl font-bold text-indigo-600">
+    Student Dashboard
+  </h1>
+
+  <button
+    onClick={logout}
+    className="
+    px-5 py-2
+    bg-red-500
+    text-white
+    rounded-lg
+    hover:scale-105
+    transition">
+    Logout
+  </button>
+
+</div>
 
           {/* ================= TEAM DETAILS TABLE ================= */}
           <table className="w-full border border-gray-300 mb-8">
