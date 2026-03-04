@@ -34,121 +34,153 @@ export default function ProblemStatements() {
   },
 
   {
-    id: 2,
-    title: "Multipurpose Digital Infrastructure Systems",
-    problems: [
-      {
-        id: 5,
-        title: "Unified Digital Identity and Access Management Platform",
-        description: `This project focuses on developing a centralized digital identity system that allows users to access multiple services using a single login. In many organizations, users must maintain separate accounts for different systems, leading to security risks and management difficulties. The platform provides controlled access based on user roles and responsibilities, ensuring secure and organized authentication across services.`
-      },
-      {
-        id: 6,
-        title: "Smart Resource Allocation and Sharing Platform",
-        description: `This project aims to build a system that efficiently manages shared resources such as classrooms, equipment, vehicles, or workspaces. Manual booking systems often result in conflicts, mismanagement, and underutilization of resources. The platform helps track availability, allocate resources systematically, and maintain proper usage records to improve overall efficiency.`
-      },
-      {
-        id: 7,
-        title: "Multi-Service Request Management System",
-        description: `This project focuses on developing a centralized platform where users can submit and manage various service requests such as IT support, maintenance, or administrative assistance. Traditional request handling methods often lack proper tracking and coordination. The system organizes service requests in a structured manner, ensuring better management and smoother resolution processes.`
-      },
-      {
-        id: 8,
-        title: "Fake Review and Spam Detection System",
-        description: `This project aims to develop a system that identifies fake reviews and spam content in online platforms. Misleading or non-genuine reviews can negatively impact user trust and business credibility. The system analyzes textual data using Artificial Intelligence techniques to detect suspicious patterns and improve content reliability.`
-      }
-    ]
-  },
+  id: 2,
+  title: "Multipurpose Digital Infrastructure Systems",
+  problems: [
+    {
+      id: 5,
+      title: "Unified Digital Identity and Access Management Platform",
+      description: `In modern digital environments, users often need to access multiple applications and services, each requiring separate login credentials. Managing multiple accounts can create security risks, increase password fatigue, and make access control difficult for organizations. Organizations also face difficulties in maintaining user roles, permissions, and security policies across different platforms.
+
+Participants are expected to design a unified digital identity and access management system that enables users to securely authenticate once and access multiple services using a single identity. The solution should include features such as role-based access control, permission management, secure authentication mechanisms, and activity logging. The platform may utilize encryption, authentication protocols, and secure database management to ensure data protection and smooth user experience.`
+    },
+    {
+      id: 6,
+      title: "Smart Resource Allocation and Sharing Platform",
+      description: `Institutions and organizations often manage shared resources such as classrooms, laboratories, equipment, vehicles, and workspaces. Manual scheduling and tracking often lead to conflicts, poor utilization of resources, and operational inefficiencies.
+
+Participants are expected to develop a smart resource allocation and sharing platform that efficiently manages bookings, tracks real-time availability, and records usage history. The system should optimize resource utilization, prevent scheduling conflicts, and provide analytics for decision-making. The solution may include dashboards, booking interfaces, and automated allocation logic to ensure fair and effective distribution of shared resources.`
+    },
+    {
+      id: 7,
+      title: "Multi-Service Request Management System",
+      description: `Organizations handle various service requests such as IT support, maintenance issues, administrative assistance, and infrastructure-related problems. Traditional request handling methods are often slow, fragmented, and lack transparency, leading to delays and dissatisfaction among users.
+
+Participants are challenged to build a centralized multi-service request management system where users can easily raise requests, track their status, and receive timely updates. The platform should include features such as request categorization, priority setting, admin dashboards, task assignment, and resolution tracking. The solution should enhance service efficiency, accountability, and user satisfaction through streamlined digital workflows.`
+    },
+    {
+      id: 8,
+      title: "Fake Review and Spam Detection System",
+      description: `Online platforms frequently suffer from fake reviews, spam messages, and bot-generated content, which mislead users and reduce trust. Identifying genuine feedback from fake or spam content is difficult when large volumes of data are involved.
+
+Participants are expected to design an intelligent system that automatically detects fake reviews, spam, and suspicious activities using machine learning, natural language processing, or rule-based techniques. The system should classify content as genuine or suspicious and generate reliability scores. The platform should help organizations maintain content authenticity, enhance trust, and improve decision-making based on accurate user feedback.`
+    }
+  ]
+},
+
+{
+  id: 3,
+  title: "Agriculture, FoodTech and Rural Development",
+  problems: [
+    {
+      id: 9,
+      title: "Supply Chain Traceability Platform",
+      description: `In agricultural and food supply chains, lack of transparency often leads to quality issues, food safety risks, and reduced consumer trust. Tracking products from farm to consumer is complex due to multiple intermediaries and logistics stages.
+
+Participants are challenged to design a supply chain traceability platform that records and monitors each stage of a product’s journey, including production, storage, transportation, processing, and distribution. The system should provide transparent traceability data, quality monitoring, and real-time tracking. The solution should enhance food safety, accountability, and consumer confidence using digital records and analytics.`
+    },
+    {
+      id: 10,
+      title: "Demand and Supply Matching System",
+      description: `Farmers and producers often face challenges in predicting market demand, while consumers struggle to find suitable suppliers. This mismatch often leads to wastage, price fluctuations, and inefficient distribution.
+
+Participants are expected to develop a demand and supply matching platform that dynamically connects suppliers and consumers based on availability, demand patterns, and geographical location. The system should suggest optimal matches, display analytics, and improve logistics planning. The platform should promote efficient distribution, fair pricing, and reduced wastage using data-driven insights.`
+    },
+    {
+      id: 11,
+      title: "Smart Storage Monitoring and Loss Prevention System",
+      description: `Agricultural produce and food items are highly sensitive to environmental conditions such as temperature, humidity, and storage duration. Poor storage management leads to spoilage, quality degradation, and financial losses.
+
+Participants are challenged to build a smart storage monitoring system that continuously tracks environmental conditions and predicts potential risks using sensor data and predictive analytics. The platform should generate alerts, provide preventive recommendations, and help minimize losses. The solution should enhance storage efficiency, product quality, and sustainability in food management.`
+    },
+    {
+      id: 12,
+      title: "Digital Marketplace Analytics Dashboard",
+      description: `Digital agricultural marketplaces generate large volumes of data related to sales, pricing, demand, and customer behavior. However, lack of proper analytics tools makes it difficult for stakeholders to gain useful insights.
+
+Participants are expected to design an analytics dashboard that visualizes marketplace data through charts, graphs, and reports. The system should provide insights into sales trends, pricing fluctuations, and consumer demand patterns. The platform should support informed decision-making, business planning, and performance optimization using interactive data visualization tools.`
+    }
+  ]
+},
+
+{
+  id: 4,
+  title: "Digital Platforms and Social Innovation",
+  problems: [
+    {
+      id: 13,
+      title: "Community Collaboration Platform",
+      description: `Communities, non-profit organizations, and social groups often struggle to coordinate activities, events, and initiatives efficiently. Communication gaps and lack of centralized planning tools result in reduced engagement and operational challenges.
+
+Participants are challenged to build a community collaboration platform that enables users to organize events, manage tasks, share updates, and communicate effectively. The system should include tools for messaging, scheduling, task tracking, and event management. The platform should promote teamwork, transparency, and social engagement through digital collaboration.`
+    },
+    {
+      id: 14,
+      title: "Trust and Reputation Management System",
+      description: `In digital ecosystems, establishing trust among users is crucial. Without proper credibility mechanisms, digital platforms may face fraud, misinformation, and reduced user participation.
+
+Participants are expected to design a trust and reputation management system that assigns credibility scores based on verified activities, feedback, and user participation. The platform should maintain reputation histories, display trust ratings, and promote accountability. The solution should enhance transparency, reliability, and confidence in digital interactions.`
+    },
+    {
+      id: 15,
+      title: "Knowledge Sharing and Mentorship Platform",
+      description: `Students and professionals often lack access to experienced mentors and structured knowledge-sharing platforms. This results in limited career guidance, skill development, and professional growth.
+
+Participants are challenged to build a knowledge sharing and mentorship platform that connects mentors and learners across multiple domains. The system should support profile creation, intelligent matching, session scheduling, communication tools, and feedback tracking. The platform should foster learning, guidance, and community-driven knowledge exchange.`
+    },
+    {
+      id: 16,
+      title: "Digital Inclusion and Accessibility Assistant",
+      description: `Differently-abled individuals face significant challenges while interacting with digital platforms due to complex interfaces and lack of assistive technologies. This limits their access to essential digital services.
+
+Participants are expected to design a digital inclusion and accessibility assistant that enhances usability through voice interaction, simplified navigation, adaptive interfaces, and assistive tools. The platform should ensure inclusive digital access, user-friendly design, and improved digital participation for all users, promoting equality and social inclusion.`
+    }
+  ]
+},
 
   {
-    id: 3,
-    title: "Agriculture, FoodTech and Rural Development",
-    problems: [
-      {
-        id: 9,
-        title: "Supply Chain Traceability Platform",
-        description: `This system tracks the complete journey of agricultural and food products from the farm to the final consumer. It records data at each stage, including storage, transportation, processing, and market distribution, ensuring transparency and accountability. By providing detailed tracking information, the platform helps verify product origin, monitor quality standards, and enhance food safety. This improves consumer trust and reduces the risk of contamination or fraud in the supply chain.`
-      },
-      {
-        id: 10,
-        title: "Demand and Supply Matching System",
-        description: `This platform connects farmers and suppliers directly with buyers by matching real-time demand and supply data. It considers factors such as location, availability, quantity, and pricing to recommend suitable matches. By reducing intermediaries and improving coordination, the system helps minimize wastage, stabilize market prices, and increase farmers’ income while ensuring timely delivery of produce.`
-      },
-      {
-        id: 11,
-        title: "Smart Storage Monitoring and Loss Prevention System",
-        description: `This system monitors environmental conditions such as temperature and humidity inside storage facilities to prevent spoilage and loss of agricultural products. Using sensor data and predictive analysis, it identifies potential risks and generates alerts when abnormal conditions occur. This helps reduce post-harvest losses and improve overall storage efficiency.`
-      },
-      {
-        id: 12,
-        title: "Digital Marketplace Analytics Dashboard",
-        description: `This system analyzes sales data, pricing trends, and customer demand patterns from digital marketplaces. It provides meaningful insights that help sellers and administrators understand market performance and improve planning, inventory management, and pricing strategies.`
-      }
-    ]
-  },
+  id: 5,
+  title: "Industry & Business Solutions",
+  problems: [
+    {
+      id: 17,
+      title: "Workflow Automation & Process Optimization System",
+      description: `In many organizations, daily operational activities such as document approvals, employee requests, internal communications, and reporting tasks are still handled through manual methods like email chains, spreadsheets, or paper-based workflows. These traditional approaches often lead to delays, lack of visibility, repeated work, and difficulty in tracking task progress across departments.
 
-  {
-    id: 4,
-    title: "Digital Platforms and Social Innovation",
-    problems: [
-      {
-        id: 13,
-        title: "Community Collaboration Platform",
-        description: `This platform provides a centralized digital space for communities and organizations to coordinate events, manage tasks, share information, and communicate effectively. It enhances participation and supports organized collaboration for social initiatives.`
-      },
-      {
-        id: 14,
-        title: "Trust and Reputation Management System",
-        description: `This system evaluates user behavior, feedback, and participation to generate credibility and trust scores. By analyzing past activities and peer reviews, it promotes ethical behavior, reduces fraudulent activities, and builds confidence in digital interactions.`
-      },
-      {
-        id: 15,
-        title: "Knowledge Sharing and Mentorship Platform",
-        description: `This platform connects mentors and learners to facilitate knowledge sharing, skill development, and career guidance. It enables structured interactions through profile matching and session management, supporting continuous learning and professional growth.`
-      },
-      {
-        id: 16,
-        title: "Digital Inclusion and Accessibility Assistant",
-        description: `This system improves digital accessibility for differently-abled and elderly users by offering assistive features such as voice interaction, text-to-speech conversion, and simplified navigation. It promotes inclusive access to digital services and supports digital empowerment for all users.`
-      }
-    ]
-  },
+Participants are expected to design a workflow automation system that helps organizations digitize and manage their internal processes efficiently. The proposed solution should allow users to create tasks, define approval hierarchies, assign responsibilities, and track the status of each workflow step in real time. The platform may also include notification systems, activity logs, and simple analytics that help administrators identify delays or bottlenecks in processes.
 
-  {
-    id: 5,
-    title: "Industry & Business Solutions",
-    problems: [
-      {
-        id: 17,
-        title: "Workflow Automation & Process Optimization System",
-        description: `Organizations across industries handle numerous internal processes such as approvals, employee requests, document verification, reporting, and task coordination. In many cases, these workflows are managed manually through emails, spreadsheets, or paper-based systems. This leads to delays, miscommunication, duplication of work, and lack of transparency.
-Participants are challenged to design an intelligent workflow automation system that digitizes and
-streamlines organizational processes. The solution should allow task creation, automated
-assignment based on predefined rules, status tracking, and real-time notifications. The system may
-include analytics to identify bottlenecks and improve process efficiency. Artificial Intelligence or
-rule-based optimization techniques can be used to enhance task prioritization and workflow
-management. The goal is to increase productivity, reduce operational delays, and ensure smooth
-coordination across departments.`
-      },
-      {
-        id: 18,
-        title: "Predictive Maintenance Management Platform",
-        description: `This project aims to build an intelligent maintenance management system that predicts equipment failures before they occur. Industries often face unexpected machine breakdowns that cause production delays and financial loss. The system collects data such as machine usage, temperature, vibration levels, and maintenance history. Using Artificial Intelligence and data analysis techniques, it predicts possible faults and sends early alerts. It can also schedule maintenance automatically based on risk levels. This helps reduce downtime, extend equipment lifespan, and optimize maintenance costs.`
-      },
-      {
-        id: 19,
-        title: "Business Intelligence Decision Support Dashboard",
-        description: `This project focuses on creating a centralized dashboard that helps organizations make data-driven decisions. Businesses generate large amounts of data from sales, finance, marketing, and operations, but analyzing it manually is difficult. The system collects and integrates data from multiple sources and presents it using charts, graphs, and performance indicators. It tracks key metrics such as revenue, expenses, growth trends, and productivity. Advanced analytics can provide predictive insights for better planning. This helps managers understand business performance quickly and make informed strategic decisions.`
-      },
-      {
-        id: 20,
-        title: "Customer Behavior & Retention Prediction System",
-        description: `This project aims to develop a system that analyzes customer behavior and predicts the likelihood of customers leaving a service or product (customer churn). Many businesses struggle to retain customers due to lack of behavioral insights. The system studies purchase history, usage patterns, feedback, and engagement data. Using machine learning techniques, it identifies customers who are at risk of leaving and suggests personalized offers or engagement strategies. The results are displayed in a dashboard with customer segmentation and risk scores. This helps organizations improve customer satisfaction, increase retention, and boost long-term profitability.`
-      }
-    ]
-  }
-];
+The objective of this system is to simplify operational workflows, improve transparency between teams, reduce manual effort, and enhance overall organizational productivity through structured digital process management.`
+    },
+    {
+      id: 18,
+      title: "Predictive Maintenance Management Platform",
+      description: `Many industries rely heavily on machines and technical equipment for daily operations. Unexpected equipment failures can interrupt production, increase maintenance expenses, and sometimes create safety concerns. Traditional maintenance approaches often involve fixing machines only after failure occurs or performing maintenance at fixed intervals without understanding the actual condition of the equipment.
 
+Participants are challenged to develop a predictive maintenance platform that continuously monitors machine performance and helps organizations anticipate potential failures before they happen. The system should collect operational information such as machine usage patterns, temperature readings, vibration levels, and past maintenance records.
+
+Using data analysis techniques, the platform should identify abnormal patterns that indicate possible equipment issues and provide early alerts to maintenance teams. The system may also recommend maintenance schedules based on equipment condition rather than fixed time intervals. Such a solution can help industries reduce downtime, extend equipment lifespan, and manage maintenance operations more efficiently.`
+    },
+    {
+      id: 19,
+      title: "Business Intelligence Decision Support Dashboard",
+      description: `Modern organizations generate large amounts of data through their daily business activities, including sales transactions, marketing campaigns, operational reports, and financial records. Although this information is valuable, many organizations find it difficult to convert raw data into meaningful insights that support effective decision-making.
+
+Participants are expected to design a Business Intelligence dashboard that collects and organizes data from multiple business functions into a single visual platform. The system should present key performance indicators, performance trends, and operational summaries through interactive charts, graphs, and reports.
+
+The dashboard should enable managers and decision-makers to quickly understand business performance, monitor growth patterns, and identify areas that require improvement. Advanced implementations may include forecasting tools that help organizations anticipate future trends based on historical data. The overall objective is to support data-driven decision-making and strategic planning through clear and accessible visual analytics.`
+    },
+    {
+      id: 20,
+      title: "Customer Behavior & Retention Prediction System",
+      description: `Customer retention is one of the most important factors for long-term business success. In competitive markets, organizations often struggle to understand why customers stop using their products or services. Without proper analysis, companies may lose valuable customers without recognizing the warning signs early.
+
+Participants are challenged to develop a customer behavior analysis system that helps businesses understand customer engagement patterns and predict potential customer churn. The system should analyze various types of data such as purchase history, service usage patterns, interaction frequency, and customer feedback.
+
+Based on this analysis, the platform should identify customers who may be at risk of leaving and provide insights that help organizations take preventive actions. The system may include dashboards that display customer segments, loyalty indicators, and risk scores for individual customers. The goal is to help organizations strengthen customer relationships, improve satisfaction, and develop effective retention strategies through better understanding of customer behavior.`
+    }
+  ]
+}
+  ];
   /* ================= STATES ================= */
 
   const [activeDomain, setActiveDomain] = useState(null);
