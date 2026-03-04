@@ -89,7 +89,7 @@ function Navbar() {
           font-bold text-indigo-600
           cursor-pointer tracking-wide"
         >
-          IDEATHON 2026
+          Protothon 2026
         </h1>
 
         {/* ================= DESKTOP ================= */}
