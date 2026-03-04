@@ -28,7 +28,7 @@ export default function StudentDashboard() {
     }
 
     axios.get(
-      "http://localhost:5000/api/team/dashboard",
+      `${process.env.REACT_APP_API_URL}/api/team/dashboard`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -52,7 +52,7 @@ export default function StudentDashboard() {
     try {
 
       await axios.put(
-        `http://localhost:5000/api/team/update-abstract`,
+        `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
         { abstract: newAbstract },
         {
           headers: {

@@ -123,7 +123,7 @@ function Register() {
 
       /* REGISTER */
       await axios.post(
-        "http://localhost:5000/api/team/register",
+        `${process.env.REACT_APP_API_URL}/api/team/register`,
         {
           teamName: formData.teamName,
           leader: formData.leader,
@@ -138,7 +138,7 @@ function Register() {
 
       /* AUTO LOGIN */
       const loginRes = await axios.post(
-        "http://localhost:5000/api/team/login",
+        `${process.env.REACT_APP_API_URL}/api/team/login`,
         {
           email: formData.leader.email,
           password: formData.leader.password

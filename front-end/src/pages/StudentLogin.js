@@ -27,7 +27,7 @@ export default function StudentLogin() {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/team/login",
+        `${process.env.REACT_APP_API_URL}/api/team/login`,
         login
       );
 

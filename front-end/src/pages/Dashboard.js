@@ -33,7 +33,7 @@ function Dashboard() {
   const fetchTeams = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/team/teams"
+        `${process.env.REACT_APP_API_URL}/api/team/teams`
       );
       setTeams(res.data);
     } catch (err) {
@@ -44,7 +44,7 @@ function Dashboard() {
   /* ================= STATUS UPDATE ================= */
   const updateStatus = async (id, status) => {
     await axios.put(
-      `http://localhost:5000/api/team/status/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/team/status/${id}`,
       { status }
     );
     fetchTeams();
@@ -133,7 +133,7 @@ function Dashboard() {
           </a>
 
           <a
-            href="http://localhost:5000/api/export"
+            href={`${process.env.REACT_APP_API_URL}/api/export`}
             className="px-4 py-3 rounded-lg bg-green-600 text-white">
             Export Excel
           </a>

@@ -27,7 +27,7 @@ export default function StaffLogin() {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/staff/login",
+        `${process.env.REACT_APP_API_URL}/api/staff/login`,
         login
       );
 
