@@ -717,7 +717,7 @@ border-t border-gray-700
       </p>
 
       <p className="text-sm mb-3">
-        Name: Joel Mesina<br/>
+        Name: Joel Mesina G A<br/>
         Phone: +91 97888 30593
       </p>
     </div>
