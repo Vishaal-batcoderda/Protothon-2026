@@ -241,6 +241,7 @@ function Register() {
               onChange={(e) =>
                 setFormData({
                   ...formData,
+                  year: e.target.value,
                   leader: { ...formData.leader, year: e.target.value }
                 })
               }
