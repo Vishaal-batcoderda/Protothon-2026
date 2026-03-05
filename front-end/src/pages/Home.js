@@ -717,13 +717,8 @@ border-t border-gray-700
       </p>
 
       <p className="text-sm mb-3">
-        Name: Vishaal P R<br/>
-        Phone: +91 89033 47092
-      </p>
-
-      <p className="text-sm">
-        Name: Vimal A<br/>
-        Phone: +91 91503 16100
+        Name: Joel Mesina<br/>
+        Phone: +91 97888 30593
       </p>
     </div>
 
