@@ -127,12 +127,6 @@ function Dashboard() {
           </select>
 
           <a
-            href="/selected"
-            className="px-4 py-3 rounded-lg bg-indigo-600 text-white">
-            Selected Teams
-          </a>
-
-          <a
             href={`${process.env.REACT_APP_API_URL}/api/team/export`}
             className="px-4 py-3 rounded-lg bg-green-600 text-white">
             Export Excel
