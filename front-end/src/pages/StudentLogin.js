@@ -29,7 +29,7 @@ export default function StudentLogin() {
     try {
 
       const res = await axios.post(
-        "https://protothon.onrender.com/api/team/login",
+        `${process.env.REACT_APP_API_URL}/api/team/login`,
         login
       );
 
