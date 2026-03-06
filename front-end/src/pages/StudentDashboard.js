@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -12,7 +11,7 @@ export default function StudentDashboard() {
   const [newAbstract, setNewAbstract] = useState("");
 
   const navigate = useNavigate();
-  
+
   const logout = () => {
   localStorage.removeItem("teamToken");
   navigate("/student/login");
@@ -51,6 +50,8 @@ export default function StudentDashboard() {
 
   }, [navigate]);
 
+
+
   /* ================= UPDATE ABSTRACT ================= */
   const updateAbstract = async () => {
 
@@ -80,7 +81,63 @@ export default function StudentDashboard() {
 
   return (
     <>
-      <Navbar />
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center px-4 sm:px-6 py-4 shadow bg-white gap-2">
+
+  <img
+    src="/protothon.png"
+    alt="Protothon Logo"
+    className="h-10 mx-auto sm:mx-0"
+  />
+
+  <div className="text-center sm:text-right font-semibold text-gray-700 text-sm sm:text-base">
+    Team ID : {team.teamId} | {team.leader.name} (Logged In)
+  </div>
+
+</div>
+
+    <div className="
+mb-8
+p-6
+rounded-xl
+bg-green-50
+border border-green-200
+flex flex-col md:flex-row
+items-center
+justify-between
+gap-4">
+
+<div>
+
+<h3 className="text-lg font-semibold text-green-700">
+Stay Updated!
+</h3>
+
+<p className="text-gray-600 text-sm">
+Join the Protothon WhatsApp community
+to receive important announcements and updates.
+</p>
+
+</div>
+
+<a
+href="https://chat.whatsapp.com/Hw7FG3ofObXEjQeUDao1md"
+target="_blank"
+rel="noopener noreferrer"
+className="
+px-6 py-2
+bg-green-500
+text-white
+rounded-lg
+font-semibold
+hover:bg-green-600
+transition"
+>
+
+Join WhatsApp
+
+</a>
+
+</div>
 
       <div className="min-h-screen pt-32 px-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
 
@@ -90,7 +147,7 @@ export default function StudentDashboard() {
           className="max-w-5xl mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10"
         >
 
-           <div className="flex justify-between items-center mb-8">
+         <div className="flex justify-between items-center mb-8">
 
   <h1 className="text-3xl font-bold text-indigo-600">
     Student Dashboard
@@ -117,7 +174,7 @@ export default function StudentDashboard() {
 
               <tr className="border">
                 <td className="p-3 font-semibold bg-gray-100">Team Name</td>
-                <td className="p-3">{team.teamName}</td>
+                <td className="p-3">{team?.teamName}</td>
               </tr>
 
               <tr className="border">
