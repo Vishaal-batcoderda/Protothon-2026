@@ -21,15 +21,15 @@ export default function ParticlesBackground() {
 
         particles: {
           number: {
-            value: 45,
+            value: 35,
           },
 
           color: {
-            value: "#6366f1",
+            value: "#ffffff",
           },
 
           opacity: {
-            value: 0.3,
+            value: 0.25,
           },
 
           size: {
@@ -44,8 +44,8 @@ export default function ParticlesBackground() {
           links: {
             enable: true,
             distance: 150,
-            color: "#a5b4fc",
-            opacity: 0.2,
+            color: "#ffffff",
+            opacity: 0.15,
             width: 1,
           },
         },
