@@ -132,7 +132,7 @@ function Register() {
       {
         teamName: formData.teamName,
         department: formData.department,
-        year: formData.year,
+        year: formData.leader.year,
       });
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/team/register`,
@@ -141,7 +141,7 @@ function Register() {
         leader: formData.leader,
         members,
         department: formData.department,
-        year: formData.year,
+        year: formData.leader.year,
         domain: selectedDomain,
         problemTitle: formData.problemTitle,
         abstract: formData.abstract
