@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 export default function StaffLogin() {
 
-  
   const navigate = useNavigate();
 
   const [login, setLogin] = useState({
@@ -33,7 +33,7 @@ export default function StaffLogin() {
     try {
 
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/staff/login`,
+        "https://localhost:3000/api/staff/login",
         login
       );
 
@@ -58,10 +58,7 @@ export default function StaffLogin() {
         min-h-screen
         flex justify-center items-center
         pt-28 px-4
-        bg-gradient-to-br
-        from-indigo-50
-        via-purple-50
-        to-pink-50"
+        bg-white"
       >
 
         <motion.form
@@ -71,8 +68,7 @@ export default function StaffLogin() {
           transition={{ duration: 0.6 }}
           className="
           w-full max-w-md
-          bg-white/80
-          backdrop-blur-xl
+          bg-white
           rounded-3xl
           shadow-2xl
           border border-gray-200
@@ -82,7 +78,7 @@ export default function StaffLogin() {
           {/* TITLE */}
           <h2 className="
           text-3xl font-bold
-          text-indigo-600
+          text-black
           mb-8">
             Staff Login
           </h2>
@@ -99,58 +95,56 @@ export default function StaffLogin() {
             border border-gray-300
             outline-none
             focus:ring-2
-            focus:ring-indigo-500"
+            focus:ring-black"
           />
 
           {/* PASSWORD */}
           <div className="relative mb-8">
 
-  <input
-    type={showPassword ? "text" : "password"}
-    name="password"
-    placeholder="Password"
-    onChange={handleChange}
-    required
-    className="
-    w-full
-    p-3 pr-12
-    rounded-xl
-    border border-gray-300
-    outline-none
-    focus:ring-2
-    focus:ring-indigo-500"
-  />
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+              className="
+              w-full
+              p-3 pr-12
+              rounded-xl
+              border border-gray-300
+              outline-none
+              focus:ring-2
+              focus:ring-black"
+            />
 
-  <span
-    onClick={() => setShowPassword(!showPassword)}
-    className="
-    absolute right-4 top-1/2
-    -translate-y-1/2
-    cursor-pointer
-    text-gray-500"
-  >
-    {showPassword ? <FaEyeSlash /> : <FaEye />}
-  </span>
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="
+              absolute right-4 top-1/2
+              -translate-y-1/2
+              cursor-pointer
+              text-gray-500"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
 
-</div>
+          </div>
 
           {/* LOGIN BUTTON */}
           <button
-  type="submit"
-  disabled={loading}
-  className="
-  w-full py-3
-  rounded-xl
-  bg-gradient-to-r
-  from-indigo-600
-  to-purple-600
-  text-white
-  font-semibold
-  transition
-  disabled:opacity-70"
->
-  {loading ? "Logging in..." : "Login →"}
-</button>
+            type="submit"
+            disabled={loading}
+            className="
+            w-full py-3
+            rounded-xl
+            bg-black
+            text-white
+            font-semibold
+            transition
+            disabled:opacity-70"
+          >
+            {loading ? "Logging in..." : "Login →"}
+          </button>
 
         </motion.form>
 
