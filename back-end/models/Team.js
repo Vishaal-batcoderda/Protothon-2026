@@ -22,6 +22,13 @@ const memberSchema = new mongoose.Schema({
 
 const TeamSchema = new mongoose.Schema({
 
+  /* ===== TEAM ID (Added) ===== */
+
+  teamId: {
+    type: Number,
+    unique: true
+  },
+
   teamName: { type: String, required: true },
 
   leader: {
