@@ -27,6 +27,7 @@ function Dashboard() {
 
   }, [navigate]);
 
+
   const fetchTeams = async () => {
     try {
       const res = await axios.get(
