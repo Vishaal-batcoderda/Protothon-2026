@@ -5,8 +5,9 @@ const Team = require("../models/Team");
 exports.getTeamDashboard = async (req, res) => {
 
   const team = await Team.findById(
-    req.team.teamId
+    req.team.id
   ).select("-leader.password");
 
   res.json(team);
+
 };
