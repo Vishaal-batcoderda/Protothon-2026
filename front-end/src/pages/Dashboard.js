@@ -193,9 +193,9 @@ flex flex-wrap gap-4 items-center">
                     {team.teamName}
                   </td>
 
-                  <td>{team.leader?.email}</td>
                   <td>{team.department}</td>
                   <td>{team.year}</td>
+                  <td>{team.domain}</td>
                   <td className="max-w-xs truncate">
   {team.problemTitle || team.problemStatement}
 </td>
