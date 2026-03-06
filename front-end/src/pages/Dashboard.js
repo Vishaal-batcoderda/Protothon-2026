@@ -138,11 +138,11 @@ flex flex-wrap gap-4 items-center">
     bg-white"
   >
     <option value="all">All Domains</option>
-    <option value="Domain 1">Domain 1</option>
-    <option value="Domain 2">Domain 2</option>
-    <option value="Domain 3">Domain 3</option>
-    <option value="Domain 4">Domain 4</option>
-    <option value="Domain 5">Domain 5</option>
+    <option value="1">Domain 1</option>
+    <option value="2">Domain 2</option>
+    <option value="3">Domain 3</option>
+    <option value="4">Domain 4</option>
+    <option value="5">Domain 5</option>
   </select>
 
   <a
@@ -195,7 +195,6 @@ flex flex-wrap gap-4 items-center">
 
                   <td>{team.department}</td>
                   <td>{team.year}</td>
-                  <td>{team.domain}</td>
                   <td className="max-w-xs truncate">
   {team.problemTitle || team.problemStatement}
 </td>
