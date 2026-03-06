@@ -130,7 +130,7 @@ function Register() {
   try {
 
     const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/team/register`,
+      "http://localhost:3000/api/team/register",
       {
         teamName: formData.teamName,
         leader: formData.leader,
@@ -148,7 +148,7 @@ function Register() {
     setTeamId(generatedId);
 
     const loginRes = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/team/login`,
+      "http://localhost:3000/api/team/login",
       {
         email: formData.leader.email,
         password: formData.leader.password
@@ -254,22 +254,20 @@ function Register() {
                 })
               }
             />
-            
+
             <select
-              required
-              value={formData.year}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  year: e.target.value
-                })
-              }
-              className="w-full p-3 border rounded-xl"
-            >
-              <option value="">Select Year</option>
-              <option value="2nd Year">2nd Year</option>
-              <option value="3rd Year">3rd Year</option>
-            </select>
+  className="w-full p-3 border rounded-xl"
+  onChange={(e) =>
+    setFormData({
+      ...formData,
+      leader: { ...formData.leader, year: e.target.value }
+    })
+  }
+>
+  <option value="">Year</option>
+  <option value="2">2nd Year</option>
+  <option value="3">3rd Year</option>
+</select>
 
             <div className="relative">
 
@@ -303,34 +301,47 @@ function Register() {
               <div key={index} className="space-y-2">
 
                 <input
-                  placeholder="Name"
-                  className="w-full p-3 border rounded-xl"
-                  onChange={(e) => {
-                    const updated = [...members];
-                    updated[index].name = e.target.value;
-                    setMembers(updated);
-                  }}
-                />
+  placeholder="Name"
+  className="w-full p-3 border rounded-xl"
+  onChange={(e) => {
+    const updated = [...members];
+    updated[index].name = e.target.value;
+    setMembers(updated);
+  }}
+/>
 
-                <input
-                  placeholder="Reg No"
-                  className="w-full p-3 border rounded-xl"
-                  onChange={(e) => {
-                    const updated = [...members];
-                    updated[index].regNo = e.target.value;
-                    setMembers(updated);
-                  }}
-                />
+<input
+  placeholder="Reg No"
+  className="w-full p-3 border rounded-xl"
+  onChange={(e) => {
+    const updated = [...members];
+    updated[index].regNo = e.target.value;
+    setMembers(updated);
+  }}
+/>
 
-                <input
-                  placeholder="Email"
-                  className="w-full p-3 border rounded-xl"
-                  onChange={(e) => {
-                    const updated = [...members];
-                    updated[index].email = e.target.value;
-                    setMembers(updated);
-                  }}
-                />
+<input
+  placeholder="Email"
+  className="w-full p-3 border rounded-xl"
+  onChange={(e) => {
+    const updated = [...members];
+    updated[index].email = e.target.value;
+    setMembers(updated);
+  }}
+/>
+
+<select
+  className="w-full p-3 border rounded-xl"
+  onChange={(e) => {
+    const updated = [...members];
+    updated[index].year = e.target.value;
+    setMembers(updated);
+  }}
+>
+  <option value="">Select Year</option>
+  <option value="2">2nd Year</option>
+  <option value="3">3rd Year</option>
+</select>
 
                 {members.length > 1 && (
                   <button
