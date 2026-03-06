@@ -27,3 +27,67 @@ background-position:0% 50%;
 }
 
 }
+
+/* Animated Gradient Background */
+
+.gradient-bg {
+  background: linear-gradient(
+    -45deg,
+    #6366f1,
+    #a855f7,
+    #ec4899,
+    #818cf8
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  25%{
+    background-position:50% 100%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  75%{
+    background-position:50% 0%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+
+}
+
+/* ===== AURORA EFFECT ===== */
+
+@keyframes auroraMove {
+  0% {
+    transform: translateX(-30%) translateY(-20%) rotate(0deg);
+  }
+
+  50% {
+    transform: translateX(30%) translateY(20%) rotate(180deg);
+  }
+
+  100% {
+    transform: translateX(-30%) translateY(-20%) rotate(360deg);
+  }
+}
+
+.aurora {
+  position: absolute;
+  width: 1100px;
+  height: 1100px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.35;
+  animation: auroraMove 35s linear infinite;
+}
