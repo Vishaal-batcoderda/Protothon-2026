@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../assets/logo.png"
 
 export default function StudentDashboard() {
 
@@ -84,7 +85,7 @@ export default function StudentDashboard() {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center px-4 sm:px-6 py-4 shadow bg-white gap-2">
 
   <img
-    src="/logo.png"
+    src={logo}
     alt="Protothon Logo"
     className="h-10 mx-auto sm:mx-0"
   />
