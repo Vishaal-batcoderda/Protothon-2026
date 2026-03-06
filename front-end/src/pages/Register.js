@@ -254,6 +254,22 @@ function Register() {
                 })
               }
             />
+            
+            <select
+              required
+              value={formData.year}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  year: e.target.value
+                })
+              }
+              className="w-full p-3 border rounded-xl"
+            >
+              <option value="">Select Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+            </select>
 
             <div className="relative">
 

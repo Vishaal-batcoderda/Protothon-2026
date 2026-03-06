@@ -5,8 +5,6 @@ const Team = require("../models/Team");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const teamAuth = require("../middleware/teamAuth");
-const count = await Team.countDocuments();
-const teamId = count + 1;
 
 
 /* ======================================================
