@@ -15,10 +15,7 @@ export default function Success() {
         min-h-screen
         flex justify-center items-center
         px-6
-        bg-gradient-to-br
-        from-indigo-50
-        via-purple-50
-        to-pink-50"
+        bg-white"
       >
 
         <motion.div
@@ -40,9 +37,7 @@ export default function Success() {
           flex flex-col
           justify-center
           items-center
-          bg-gradient-to-br
-          from-indigo-600
-          to-purple-600
+          bg-black
           text-white
           p-12">
 
@@ -68,7 +63,7 @@ export default function Success() {
                 height="60"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#4f46e5"
+                stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -97,9 +92,9 @@ export default function Success() {
 
             <h1 className="
             text-4xl font-bold
-            text-gray-800
+            text-black
             mb-4">
-              Welcome to Protothon 2026 
+              Welcome to Protothon 2026
             </h1>
 
             <p className="
@@ -117,9 +112,7 @@ export default function Success() {
               self-center md:self-start
               px-8 py-3
               rounded-xl
-              bg-gradient-to-r
-              from-indigo-600
-              to-purple-600
+              bg-black
               text-white
               font-semibold
               shadow-lg
