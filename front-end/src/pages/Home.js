@@ -342,9 +342,9 @@ opacity-60"
 
 {[
 { title:"Registration Opens", date:"March 10" },
-{ title:"Registration Closes", date:"Date will be announce on Monday" },
-{ title:"Shortlisting Announcement", date:"Date will be announce on Monday" },
-{ title:"Final Presentation", date:"Date will be announce on Monday" },
+{ title:"Registration Closes", date:"Date will be announced on Monday" },
+{ title:"Shortlisting Announcement", date:"Date will be announced on Monday" },
+{ title:"Final Presentation", date:"Date will be announced on Monday" },
 ].map((event,index)=>{
 
 const isLeft = index % 2 === 0;
