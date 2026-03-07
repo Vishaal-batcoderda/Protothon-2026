@@ -27,7 +27,7 @@ export default function ScrollProgress() {
       className="
       fixed top-0 left-0
       h-1
-      bg-white
+      bg-black
       z-[999]"
     />
   );
