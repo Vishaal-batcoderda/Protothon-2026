@@ -267,6 +267,7 @@ router.get("/export", async (req, res) => {
     const worksheet = workbook.addWorksheet("Ideathon Teams");
 
     worksheet.columns = [
+      { header: "Team ID", key: "teamId", width: 10 },
       { header: "Team Name", key: "teamName", width: 25 },
       { header: "Domain", key: "domain", width: 20 },
       { header: "Problem Title", key: "problemTitle", width: 30 },
@@ -275,6 +276,7 @@ router.get("/export", async (req, res) => {
 
     teams.forEach(team => {
       worksheet.addRow({
+        teamId: team.teamId,
         teamName: team.teamName,
         domain: team.domain,
         problemTitle: team.problemTitle,
