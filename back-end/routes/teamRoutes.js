@@ -268,9 +268,6 @@ router.get("/export", async (req, res) => {
 
     worksheet.columns = [
       { header: "Team Name", key: "teamName", width: 25 },
-      { header: "Leader Email", key: "leaderEmail", width: 30 },
-      { header: "Department", key: "department", width: 20 },
-      { header: "Year", key: "year", width: 10 },
       { header: "Domain", key: "domain", width: 20 },
       { header: "Problem Title", key: "problemTitle", width: 30 },
       { header: "Status", key: "status", width: 15 }
@@ -279,9 +276,6 @@ router.get("/export", async (req, res) => {
     teams.forEach(team => {
       worksheet.addRow({
         teamName: team.teamName,
-        leaderEmail: team.leader?.email,
-        department: team.department,
-        year: team.year,
         domain: team.domain,
         problemTitle: team.problemTitle,
         status: team.status
