@@ -120,6 +120,18 @@ className="md:w-1/2 text-center md:text-left"
 >
 
 {/* BADGE */}
+{/* COLLEGE NAME */}
+<h2 className="
+text-2xl md:text-3xl
+font-bold
+text-gray-900
+mb-2
+text-center md:text-left
+">
+Saranathan College of Engineering
+</h2>
+
+{/* BADGE */}
 <div className="flex justify-center md:justify-start mb-4">
 
 <span
@@ -169,7 +181,7 @@ className="mt-8 w-full flex justify-center md:justify-start"
 </motion.div>
 
 {/* CTA BUTTONS */}
-<div className="mt-10 flex flex-wrap gap-5 justify-center md:justify-start">
+<div className="mt-4 flex flex-wrap gap-5 justify-center md:justify-start">
 
 <motion.button
 whileHover={{
