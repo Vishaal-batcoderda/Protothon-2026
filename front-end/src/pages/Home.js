@@ -54,7 +54,7 @@ export default function Home() {
   ];
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
 
@@ -352,7 +352,7 @@ return(
 
 <motion.div
 key={index}
-initial={{opacity:0,x:isLeft?-120:120}}
+initial={{opacity:0,x:isLeft?-100%:100%}}
 whileInView={{opacity:1,x:0}}
 viewport={{once:true}}
 transition={{duration:0.8}}
@@ -623,6 +623,6 @@ it264061@saranathan.ac.in
 
 </footer>
 
-    </>
+    </div>
   );
 }
