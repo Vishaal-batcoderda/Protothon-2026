@@ -363,17 +363,34 @@ function Register() {
 
             {/* Domain */}
 
-            <select
-              value={selectedDomain}
-              onChange={handleDomainChange}
-              className="p-3 border rounded-xl"
-              required
-            >
-              <option value="">Select Domain</option>
-              {domains.map((d, i) => (
-                <option key={i}>{d.name}</option>
-              ))}
-            </select>
+            <div className="w-full">
+  <select
+    value={selectedDomain}
+    onChange={handleDomainChange}
+    className="
+      w-full
+      p-3
+      sm:p-3
+      text-sm
+      sm:text-base
+      border
+      rounded-xl
+      focus:outline-none
+      focus:ring-2
+      focus:ring-black
+    "
+    required
+  >
+    <option value="">Select Domain</option>
+
+    {domains.map((d, i) => (
+      <option key={i} value={d.name}>
+        {d.name}
+      </option>
+    ))}
+
+  </select>
+</div>
 
             {/* Problem */}
 
