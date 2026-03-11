@@ -251,10 +251,17 @@ function Dashboard() {
                     <button
                       onClick={()=>updateStatus(team._id,"Selected")}
                       className="
-                      px-3 py-1
+                      px-4 py-2
+                      rounded-full
                       bg-green-500
                       text-white
-                      rounded">
+                      text-sm font-medium
+                      shadow-sm
+                      hover:shadow-md
+                      hover:-translate-y-[1px]
+                      active:scale-95
+                      transition-all duration-200
+                    ">
                       Select
                     </button>
 
