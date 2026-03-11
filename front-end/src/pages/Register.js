@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -17,6 +17,21 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [teamId, setTeamId] = useState(null);
+
+  useEffect(() => {
+
+  const handleBeforeUnload = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener("beforeunload", handleBeforeUnload);
+  };
+
+}, []);
 
   const domains = [
     {
@@ -126,6 +141,34 @@ function Register() {
   const handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
+
+    const emailRegex = /^it\d+@saranathan\.ac\.in$/i;
+
+  if (!emailRegex.test(formData.leader.email)) {
+    toast.error("Email must be in format itXXXXXX@saranathan.ac.in ❌");
+    setLoading(false);
+    return;
+  }
+
+    if (!/^[6-9]\d{9}$/.test(formData.leader.phone)) {
+  toast.error("Enter a valid 10 digit phone number ❌");
+  setLoading(false);
+  return;
+}
+
+    if (
+  !formData.teamName ||
+  !formData.leader.name ||
+  !formData.leader.email ||
+  !formData.leader.password ||
+  !selectedDomain ||
+  !formData.problemTitle ||
+  !formData.abstract
+) {
+  toast.error("Please fill all required fields ❌");
+  setLoading(false);
+  return;
+}
 
   try {
     const res = await axios.post(
