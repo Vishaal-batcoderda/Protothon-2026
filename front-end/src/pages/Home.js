@@ -54,7 +54,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="overflow-x-hidden">
+    <>
       <ScrollProgress />
       <Navbar />
 
@@ -64,7 +64,7 @@ id="home"
 className="
 min-h-[calc(100vh-70px)]
 flex items-center
-overflow-x-hidden
+overflow-hidden
 px-6 pt-24
 bg-gradient-to-br
 from-white
@@ -73,7 +73,7 @@ to-gray-200
 "
 >
 
-<ParticlesBackground className="absolute inset-0 overflow-hidden"/>
+<ParticlesBackground/>
 
 <div
 className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -83,7 +83,7 @@ backgroundImage:
 }}
 />
 
-<div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-10 overflow-hidden">
+<div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-14">
 
 {/* IMAGE */}
 <motion.div
@@ -96,7 +96,7 @@ className="md:w-1/2 flex justify-center"
 <motion.img
 src={protothon}
 alt="Protothon"
-className="w-[240px] sm:w-[280px] md:w-[520px] max-w-full"
+className="w-[280px] md:w-[520px]"
 animate={{
 y:[0,-14,0],
 rotate:[0,1.5,0,-1.5,0]
@@ -285,7 +285,7 @@ shadow-lg"
 <motion.img
 src={step.image}
 alt=""
-className="md:w-1/2 w-full  max-w-[320px]"
+className="md:w-1/2 w-[320px]"
 initial={{ opacity: 0, x: 120 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
@@ -352,7 +352,7 @@ return(
 
 <motion.div
 key={index}
-initial={{ opacity: 0, x: isLeft ? "-80" : "80" }}
+initial={{opacity:0,x:isLeft?-120:120}}
 whileInView={{opacity:1,x:0}}
 viewport={{once:true}}
 transition={{duration:0.8}}
@@ -623,6 +623,7 @@ it264061@saranathan.ac.in
 
 </footer>
 
-    </div>
+    </>
   );
 }
+
