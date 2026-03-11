@@ -380,7 +380,7 @@ Use your college email
 </p>
 
 <select
-  className="w-full p-3 border rounded-xl"
+  className="w-full p-3 border rounded-xl -mt-3"
   onChange={(e) => {
     const updated = [...members];
     updated[index].year = e.target.value;
