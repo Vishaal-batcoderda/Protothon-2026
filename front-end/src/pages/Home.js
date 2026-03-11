@@ -352,7 +352,7 @@ return(
 
 <motion.div
 key={index}
-initial={{ opacity: 0, x: isLeft ? "-100%" : "100%" }}
+initial={{ opacity: 0, x: isLeft ? "-80" : "80" }}
 whileInView={{opacity:1,x:0}}
 viewport={{once:true}}
 transition={{duration:0.8}}
