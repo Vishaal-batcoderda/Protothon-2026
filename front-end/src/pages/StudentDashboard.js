@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 
 export default function StudentDashboard() {
 
@@ -144,6 +144,7 @@ export default function StudentDashboard() {
 
           {/* TEAM DETAILS */}
           <div className="overflow-x-auto">
+
           <table className="w-full border border-gray-300 mb-8 text-sm sm:text-base">
 
             <tbody>
@@ -182,50 +183,74 @@ export default function StudentDashboard() {
             </tbody>
 
           </table>
+
           </div>
 
-          {/* MEMBERS */}
+          {/* TEAM MEMBERS */}
           <h2 className="text-xl font-semibold mb-4">
             Team Members
           </h2>
 
-          <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300 mb-8 text-center text-sm sm:text-base">
+          <div className="w-full overflow-x-auto">
+
+          <table className="min-w-[600px] w-full border border-gray-300 mb-8 text-sm sm:text-base">
 
             <thead className="bg-indigo-600 text-white">
+
               <tr>
-                <th className="p-3">Name</th>
-                <th>Register No</th>
-                <th>Email</th>
+                <th className="p-3 text-left">Name</th>
+                <th className="p-3 text-center">Register No</th>
+                <th className="p-3 text-left">Email</th>
               </tr>
+
             </thead>
 
             <tbody>
 
               {team.members.map((member, index) => (
+
                 <tr key={index} className="border hover:bg-indigo-50">
-                  <td className="p-3">{member.name}</td>
-                  <td>{member.regNo}</td>
-                  <td>{member.email}</td>
+
+                  <td className="p-3 whitespace-nowrap">
+                    {member.name}
+                  </td>
+
+                  <td className="p-3 text-center whitespace-nowrap">
+                    {member.regNo}
+                  </td>
+
+                  <td className="p-3 break-all">
+                    {member.email}
+                  </td>
+
                 </tr>
+
               ))}
 
             </tbody>
 
           </table>
+
           </div>
 
           {/* DOMAIN */}
           <div className="mb-8">
 
-            <h2 className="text-xl font-semibold mb-2">Domain</h2>
-            <p className="text-gray-700">{team.domain}</p>
+            <h2 className="text-xl font-semibold mb-2">
+              Domain
+            </h2>
+
+            <p className="text-gray-700">
+              {team.domain}
+            </p>
 
             <h2 className="text-xl font-semibold mt-6 mb-2">
               Problem Statement
             </h2>
 
-            <p className="text-gray-700">{team.problemTitle}</p>
+            <p className="text-gray-700">
+              {team.problemTitle}
+            </p>
 
           </div>
 
@@ -267,15 +292,19 @@ export default function StudentDashboard() {
                 </p>
 
                 {isEditable ? (
+
                   <button
                     onClick={()=>setEditing(true)}
                     className="mt-4 px-5 py-2 bg-indigo-600 text-white rounded-lg">
                     Edit Abstract
                   </button>
+
                 ) : (
+
                   <div className="mt-4 p-3 bg-yellow-100 border rounded-lg">
-                    🔒 Editing closed after March 10
+                    🔒 Editing closed after March 18
                   </div>
+
                 )}
 
               </>
