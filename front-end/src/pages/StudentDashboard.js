@@ -57,32 +57,38 @@ axios.get(
 
 const updateAbstract = async () => {
 
-  try {
 
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
-      {
-        abstract: newAbstract
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("teamToken")}`
-        }
+try {
+
+  await axios.put(
+    `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
+    {
+      teamId: team.teamId,
+      abstract: newAbstract
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("teamToken")}`
       }
-    );
+    }
+  );
 
-    setTeam(res.data);
-    setEditing(false);
+  setTeam(prev => ({
+    ...prev,
+    abstract: newAbstract
+  }));
 
-    toast.success("Abstract Updated Successfully ✅");
+  setEditing(false);
 
-  } catch (error) {
+  toast.success("Abstract Updated Successfully ✅");
 
-    toast.error("Update Failed ❌");
+} catch (error) {
 
-  }
+  console.error(error);
 
-};
+  toast.error("Update Failed ❌");
+
+}
 
 
 };
@@ -355,6 +361,7 @@ return (
   </div>
 
 </>
+
 
 );
 }
