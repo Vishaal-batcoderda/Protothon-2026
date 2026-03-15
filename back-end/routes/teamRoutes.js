@@ -6,84 +6,106 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const teamAuth = require("../middleware/teamAuth");
 const sendEmail = require("../utils/sendEmail");
-const ExcelJS = require("exceljs"); // moved to top
+
 
 /* ======================================================
-REGISTER
+   ✅ REGISTER
 ====================================================== */
 
 router.post("/register", async (req, res) => {
 
-console.log("REGISTER BODY:", req.body);
+  console.log("REGISTER BODY:",req.body);
+  try {
 
-try {
+    const {
+      teamName,
+      leader,
+      members,
+      department,
+      year,
+      domain,
+      problemTitle,
+      abstract
+    } = req.body;
 
+    if (!leader.password)
+      return res.status(400).json({
+        message: "Password is required"
+      });
 
-const {
-  teamName,
-  leader,
-  members,
-  department,
-  year,
-  domain,
-  problemTitle,
-  abstract
-} = req.body;
+    const existing = await Team.findOne({
+      $or: [
+        { "leader.regNo": leader.regNo },
+        { "members.regNo": leader.regNo }
+      ]
+    });
 
-if (!leader.password)
-  return res.status(400).json({
-    message: "Password is required"
-  });
+    if (existing)
+      return res.status(400).json({
+        message: "Leader already registered"
+      });
 
-const existing = await Team.findOne({
-  $or: [
-    { "leader.regNo": leader.regNo },
-    { "members.regNo": leader.regNo }
-  ]
-});
+    leader.password = await bcrypt.hash(leader.password, 10);
 
-if (existing)
-  return res.status(400).json({
-    message: "Leader already registered"
-  });
+    /* ===== TEAM ID GENERATE ===== */
 
-leader.password = await bcrypt.hash(leader.password, 10);
+    const count = await Team.countDocuments();
+    const teamId = count + 1;
 
-const count = await Team.countDocuments();
-const teamId = count + 1;
+    const team = new Team({
+      teamId,
+      teamName,
+      leader,
+      members,
+      department,
+      year,
+      domain,
+      problemTitle,
+      abstract
+    });
 
-const team = new Team({
-  teamId,
-  teamName,
-  leader,
-  members,
-  department,
-  year,
-  domain,
-  problemTitle,
-  abstract
-});
+    await team.save();
 
-await team.save();
-
-const emails = [
+    const emails = [
   leader.email,
-  ...(members || []).filter(m => m.email).map(m => m.email)
+  ...members.filter(m => m.email).map(m => m.email)
 ];
 
-try {
+    try {
 
   await sendEmail(
     emails,
     "Protothon 2026 | Registration Confirmed",
-    `<h2>Protothon 2026</h2>
+    `
+    <h2>Protothon 2026</h2>
+
     <p>Hello Team ${teamName},</p>
-    <p>Your registration has been successfully completed.</p>
+
+    <p>Your registration for Protothon 2026 has been successfully completed.</p>
+
     <p><b>Team ID:</b> ${teamId}</p>
     <p><b>Domain:</b> ${domain}</p>
     <p><b>Problem Statement:</b> ${problemTitle}</p>
-    <p>Login here:
-    https://protothon-2026.vercel.app/#home</p>`
+
+    <p>
+    Login here:
+    https://protothon-2026.vercel.app/#home
+    </p>
+
+    <p>
+    Thank you for registering for Protothon 2026.
+    </p>
+
+    <p>
+    Best Regards<br/>
+    Protothon 2026 Organizing Team<br/>
+    Saranathan College of Engineering
+    </p>
+
+    <p>
+    For any queries: it264061@saranathan.ac.in
+    </p>
+    `
   );
 
 } catch(err) {
@@ -92,125 +114,117 @@ try {
 
 }
 
-res.json({
-  message: "Registered Successfully",
-  teamId: teamId
+    res.json({
+      message: "Registered Successfully",
+      teamId: teamId
+    });
+
+  } catch (err) {
+
+    console.log("REGISTER ERROR:", err);
+
+    res.status(400).json({
+      message: err.message
+    });
+
+  }
 });
 
-
-} catch (err) {
-
-
-console.log("REGISTER ERROR:", err);
-
-res.status(400).json({
-  message: err.message
-});
-
-
-}
-
-});
 
 /* ======================================================
-LOGIN
+   ✅ LOGIN (Leader OR Member)
 ====================================================== */
 
 router.post("/login", async (req, res) => {
 
-try {
+  try {
 
+    const { email, password } = req.body;
 
-const { email, password } = req.body;
+    const team = await Team.findOne({
+      $or: [
+        { "leader.email": email },
+        { "members.email": email }
+      ]
+    });
 
-const team = await Team.findOne({
-  $or: [
-    { "leader.email": email },
-    { "members.email": email }
-  ]
+    if (!team)
+      return res.status(404).json({
+        message: "Not registered"
+      });
+
+    const valid = await bcrypt.compare(
+      password,
+      team.leader.password
+    );
+
+    if (!valid)
+      return res.status(401).json({
+        message: "Invalid Password"
+      });
+
+    const token = jwt.sign(
+      { teamId: team._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "2d" }
+    );
+
+    res.json({
+      token,
+      teamName: team.teamName,
+      teamId: team.teamId
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server Error"
+    });
+
+  }
 });
 
-if (!team)
-  return res.status(404).json({
-    message: "Not registered"
-  });
-
-const valid = await bcrypt.compare(
-  password,
-  team.leader.password
-);
-
-if (!valid)
-  return res.status(401).json({
-    message: "Invalid Password"
-  });
-
-const token = jwt.sign(
-  { teamId: team._id },
-  process.env.JWT_SECRET,
-  { expiresIn: "2d" }
-);
-
-res.json({
-  token,
-  teamName: team.teamName,
-  teamId: team.teamId
-});
-
-
-} catch (err) {
-
-
-console.log(err);
-
-res.status(500).json({
-  message: "Server Error"
-});
-
-
-}
-
-});
 
 /* ======================================================
-DASHBOARD
+   ✅ DASHBOARD (SECURE)
 ====================================================== */
 
 router.get("/dashboard", teamAuth, async (req, res) => {
 
-try {
+  try {
 
+    const team = await Team.findById(req.team.teamId)
+      .select("-leader.password");
 
-const team = await Team.findById(req.team.teamId)
-  .select("-leader.password");
+    if (!team)
+      return res.status(404).json({
+        message: "Team not found"
+      });
 
-if (!team)
-  return res.status(404).json({
-    message: "Team not found"
-  });
+    res.json(team);
 
-res.json(team);
+  } catch (err) {
 
+    res.status(500).json({
+      message: "Server Error"
+    });
 
-} catch (err) {
-
-res.status(500).json({
-  message: "Server Error"
-});
-
-}
+  }
 
 });
+
 
 /* ======================================================
-UPDATE ABSTRACT
+   ✅ UPDATE ABSTRACT (Editable till March 10)
 ====================================================== */
 
 router.put("/update-abstract", teamAuth, async (req, res) => {
 
   try {
 
-    const deadline = new Date("2026-03-30T23:59:59+05:30");
+    const deadline = new Date("2026-03-30T23:59:59");
 
     if (new Date() > deadline)
       return res.status(403).json({
@@ -227,8 +241,6 @@ router.put("/update-abstract", teamAuth, async (req, res) => {
 
   } catch (err) {
 
-    console.log("UPDATE ERROR:", err);
-
     res.status(500).json({
       message: "Update failed"
     });
@@ -238,126 +250,114 @@ router.put("/update-abstract", teamAuth, async (req, res) => {
 });
 
 
-}
-
-});
-
 /* ======================================================
-STAFF TEAMS
+   ✅ GET ALL TEAMS (STAFF DASHBOARD)
 ====================================================== */
 
 router.get("/teams", async (req, res) => {
 
-try {
+  try {
 
+    const teams = await Team.find()
+      .select("-leader.password");
 
-const teams = await Team.find()
-  .select("-leader.password");
+    res.json(teams);
 
-res.json(teams);
+  } catch (err) {
 
+    res.status(500).json({
+      message: "Failed to fetch teams"
+    });
 
-} catch (err) {
-
-
-res.status(500).json({
-  message: "Failed to fetch teams"
-});
-
-
-}
+  }
 
 });
+
 
 /* ======================================================
-UPDATE STATUS
+   ✅ UPDATE TEAM STATUS (STAFF)
 ====================================================== */
 
 router.put("/status/:id", async (req, res) => {
 
-try {
+  try {
 
+    const updated = await Team.findByIdAndUpdate(
+      req.params.id,
+      { status: req.body.status },
+      { new: true }
+    );
 
-const updated = await Team.findByIdAndUpdate(
-  req.params.id,
-  { status: req.body.status },
-  { new: true }
-);
+    res.json(updated);
 
-res.json(updated);
+  } catch (err) {
 
+    res.status(500).json({
+      message: "Status update failed"
+    });
 
-} catch (err) {
-
-
-res.status(500).json({
-  message: "Status update failed"
-});
-
-
-}
+  }
 
 });
+
+const ExcelJS = require("exceljs");
 
 /* ======================================================
-EXPORT EXCEL
+   EXPORT TEAMS TO EXCEL
 ====================================================== */
 
 router.get("/export", async (req, res) => {
 
-try {
+  try {
 
+    const teams = await Team.find().select("-leader.password");
 
-const teams = await Team.find().select("-leader.password");
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Ideathon Teams");
 
-const workbook = new ExcelJS.Workbook();
-const worksheet = workbook.addWorksheet("Teams");
+    worksheet.columns = [
+      { header: "Team ID", key: "teamId", width: 10 },
+      { header: "Team Name", key: "teamName", width: 25 },
+      { header: "Domain", key: "domain", width: 20 },
+      { header: "Problem Title", key: "problemTitle", width: 30 },
+      { header: "Status", key: "status", width: 15 }
+    ];
 
-worksheet.columns = [
-  { header: "Team ID", key: "teamId", width: 10 },
-  { header: "Team Name", key: "teamName", width: 25 },
-  { header: "Domain", key: "domain", width: 20 },
-  { header: "Problem Title", key: "problemTitle", width: 30 },
-  { header: "Status", key: "status", width: 15 }
-];
+    teams.forEach(team => {
+      worksheet.addRow({
+        teamId: team.teamId,
+        teamName: team.teamName,
+        domain: team.domain,
+        problemTitle: team.problemTitle,
+        status: team.status
+      });
+    });
 
-teams.forEach(team => {
-  worksheet.addRow({
-    teamId: team.teamId,
-    teamName: team.teamName,
-    domain: team.domain,
-    problemTitle: team.problemTitle,
-    status: team.status
-  });
-});
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
 
-res.setHeader(
-  "Content-Type",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-);
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=ideathon_teams.xlsx"
+    );
 
-res.setHeader(
-  "Content-Disposition",
-  "attachment; filename=teams.xlsx"
-);
+    await workbook.xlsx.write(res);
 
-await workbook.xlsx.write(res);
+    res.end();
 
-res.end();
+  } catch (error) {
 
+    console.log(error);
 
-} catch (error) {
+    res.status(500).json({
+      message: "Export failed"
+    });
 
-
-console.log(error);
-
-res.status(500).json({
-  message: "Export failed"
-});
-
-
-}
+  }
 
 });
+
 
 module.exports = router;
