@@ -57,39 +57,35 @@ axios.get(
 
 const updateAbstract = async () => {
 
+  try {
 
-try {
+    const token = localStorage.getItem("teamToken");
 
-  await axios.put(
-    `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
-    {
-      teamId: team.teamId,
-      abstract: newAbstract
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("teamToken")}`
+    const res = await axios.put(
+      `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
+      {
+        abstract: newAbstract
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    }
-  );
+    );
 
-  setTeam(prev => ({
-    ...prev,
-    abstract: newAbstract
-  }));
+    setTeam(res.data); // update UI with backend response
 
-  setEditing(false);
+    setEditing(false);
 
-  toast.success("Abstract Updated Successfully ✅");
+    toast.success("Abstract Updated Successfully ✅");
 
-} catch (error) {
+  } catch (error) {
 
-  console.error(error);
+    console.error("UPDATE ERROR:", error.response?.data || error.message);
 
-  toast.error("Update Failed ❌");
+    toast.error("Update Failed ❌");
 
-}
-
+  }
 
 };
 
