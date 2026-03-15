@@ -253,7 +253,7 @@ const teams = await Team.find()
   .select("-leader.password");
 
 res.json(teams);
-```
+
 
 } catch (err) {
 
@@ -287,7 +287,7 @@ res.json(updated);
 
 } catch (err) {
 
-```
+
 res.status(500).json({
   message: "Status update failed"
 });
