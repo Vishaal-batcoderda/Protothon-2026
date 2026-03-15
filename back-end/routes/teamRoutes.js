@@ -208,31 +208,33 @@ UPDATE ABSTRACT
 
 router.put("/update-abstract", teamAuth, async (req, res) => {
 
-try {
+  try {
 
-const deadline = new Date("2026-03-18T23:59:59");
+    const deadline = new Date("2026-03-18T23:59:59+05:30");
 
-if (new Date() > deadline)
-  return res.status(403).json({
-    message: "Editing time expired"
-  });
+    if (new Date() > deadline)
+      return res.status(403).json({
+        message: "Editing time expired"
+      });
 
-const updated = await Team.findByIdAndUpdate(
-  req.team.teamId,
-  { abstract: req.body.abstract },
-  { new: true }
-).select("-leader.password");
+    const updated = await Team.findByIdAndUpdate(
+      req.team.teamId,
+      { abstract: req.body.abstract },
+      { new: true }
+    ).select("-leader.password");
 
-res.json(updated);
+    res.json(updated);
 
+  } catch (err) {
 
-} catch (err) {
+    console.log("UPDATE ERROR:", err);
 
+    res.status(500).json({
+      message: "Update failed"
+    });
 
-console.log("UPDATE ERROR:", err);
+  }
 
-res.status(500).json({
-  message: "Update failed"
 });
 
 
