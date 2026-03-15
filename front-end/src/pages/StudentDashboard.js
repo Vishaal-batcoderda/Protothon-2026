@@ -49,7 +49,7 @@ axios.get(
   localStorage.removeItem("teamToken");
   navigate("/student/login");
 });
-```
+
 
 }, [navigate]);
 
@@ -57,39 +57,33 @@ axios.get(
 
 const updateAbstract = async () => {
 
+  try {
 
-try {
-
-  await axios.put(
-    `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
-    {
-      teamId: team.teamId,
-      abstract: newAbstract
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("teamToken")}`
+    const res = await axios.put(
+      `${process.env.REACT_APP_API_URL}/api/team/update-abstract`,
+      {
+        abstract: newAbstract
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("teamToken")}`
+        }
       }
-    }
-  );
+    );
 
-  setTeam(prev => ({
-    ...prev,
-    abstract: newAbstract
-  }));
+    setTeam(res.data);
+    setEditing(false);
 
-  setEditing(false);
+    toast.success("Abstract Updated Successfully ✅");
 
-  toast.success("Abstract Updated Successfully ✅");
+  } catch (error) {
 
-} catch (error) {
+    toast.error("Update Failed ❌");
 
-  console.error(error);
+  }
 
-  toast.error("Update Failed ❌");
+};
 
-}
-```
 
 };
 
