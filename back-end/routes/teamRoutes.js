@@ -6,106 +6,84 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const teamAuth = require("../middleware/teamAuth");
 const sendEmail = require("../utils/sendEmail");
-
+const ExcelJS = require("exceljs"); // moved to top
 
 /* ======================================================
-   ✅ REGISTER
+REGISTER
 ====================================================== */
 
 router.post("/register", async (req, res) => {
 
-  console.log("REGISTER BODY:",req.body);
-  try {
+console.log("REGISTER BODY:", req.body);
 
-    const {
-      teamName,
-      leader,
-      members,
-      department,
-      year,
-      domain,
-      problemTitle,
-      abstract
-    } = req.body;
+try {
 
-    if (!leader.password)
-      return res.status(400).json({
-        message: "Password is required"
-      });
 
-    const existing = await Team.findOne({
-      $or: [
-        { "leader.regNo": leader.regNo },
-        { "members.regNo": leader.regNo }
-      ]
-    });
+const {
+  teamName,
+  leader,
+  members,
+  department,
+  year,
+  domain,
+  problemTitle,
+  abstract
+} = req.body;
 
-    if (existing)
-      return res.status(400).json({
-        message: "Leader already registered"
-      });
+if (!leader.password)
+  return res.status(400).json({
+    message: "Password is required"
+  });
 
-    leader.password = await bcrypt.hash(leader.password, 10);
+const existing = await Team.findOne({
+  $or: [
+    { "leader.regNo": leader.regNo },
+    { "members.regNo": leader.regNo }
+  ]
+});
 
-    /* ===== TEAM ID GENERATE ===== */
+if (existing)
+  return res.status(400).json({
+    message: "Leader already registered"
+  });
 
-    const count = await Team.countDocuments();
-    const teamId = count + 1;
+leader.password = await bcrypt.hash(leader.password, 10);
 
-    const team = new Team({
-      teamId,
-      teamName,
-      leader,
-      members,
-      department,
-      year,
-      domain,
-      problemTitle,
-      abstract
-    });
+const count = await Team.countDocuments();
+const teamId = count + 1;
 
-    await team.save();
+const team = new Team({
+  teamId,
+  teamName,
+  leader,
+  members,
+  department,
+  year,
+  domain,
+  problemTitle,
+  abstract
+});
 
-    const emails = [
+await team.save();
+
+const emails = [
   leader.email,
-  ...members.filter(m => m.email).map(m => m.email)
+  ...(members || []).filter(m => m.email).map(m => m.email)
 ];
 
-    try {
+try {
 
   await sendEmail(
     emails,
     "Protothon 2026 | Registration Confirmed",
-    `
-    <h2>Protothon 2026</h2>
-
+    `<h2>Protothon 2026</h2>
     <p>Hello Team ${teamName},</p>
-
-    <p>Your registration for Protothon 2026 has been successfully completed.</p>
-
+    <p>Your registration has been successfully completed.</p>
     <p><b>Team ID:</b> ${teamId}</p>
     <p><b>Domain:</b> ${domain}</p>
     <p><b>Problem Statement:</b> ${problemTitle}</p>
-
-    <p>
-    Login here:
-    https://protothon-2026.vercel.app/#home
-    </p>
-
-    <p>
-    Thank you for registering for Protothon 2026.
-    </p>
-
-    <p>
-    Best Regards<br/>
-    Protothon 2026 Organizing Team<br/>
-    Saranathan College of Engineering
-    </p>
-
-    <p>
-    For any queries: it264061@saranathan.ac.in
-    </p>
-    `
+    <p>Login here:
+    https://protothon-2026.vercel.app/#home</p>`
   );
 
 } catch(err) {
@@ -114,250 +92,270 @@ router.post("/register", async (req, res) => {
 
 }
 
-    res.json({
-      message: "Registered Successfully",
-      teamId: teamId
-    });
-
-  } catch (err) {
-
-    console.log("REGISTER ERROR:", err);
-
-    res.status(400).json({
-      message: err.message
-    });
-
-  }
+res.json({
+  message: "Registered Successfully",
+  teamId: teamId
 });
 
 
+} catch (err) {
+
+
+console.log("REGISTER ERROR:", err);
+
+res.status(400).json({
+  message: err.message
+});
+
+
+}
+
+});
+
 /* ======================================================
-   ✅ LOGIN (Leader OR Member)
+LOGIN
 ====================================================== */
 
 router.post("/login", async (req, res) => {
 
-  try {
+try {
 
-    const { email, password } = req.body;
 
-    const team = await Team.findOne({
-      $or: [
-        { "leader.email": email },
-        { "members.email": email }
-      ]
-    });
+const { email, password } = req.body;
 
-    if (!team)
-      return res.status(404).json({
-        message: "Not registered"
-      });
+const team = await Team.findOne({
+  $or: [
+    { "leader.email": email },
+    { "members.email": email }
+  ]
+});
 
-    const valid = await bcrypt.compare(
-      password,
-      team.leader.password
-    );
+if (!team)
+  return res.status(404).json({
+    message: "Not registered"
+  });
 
-    if (!valid)
-      return res.status(401).json({
-        message: "Invalid Password"
-      });
+const valid = await bcrypt.compare(
+  password,
+  team.leader.password
+);
 
-    const token = jwt.sign(
-      { teamId: team._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "2d" }
-    );
+if (!valid)
+  return res.status(401).json({
+    message: "Invalid Password"
+  });
 
-    res.json({
-      token,
-      teamName: team.teamName,
-      teamId: team.teamId
-    });
+const token = jwt.sign(
+  { teamId: team._id },
+  process.env.JWT_SECRET,
+  { expiresIn: "2d" }
+);
 
-  } catch (err) {
-
-    console.log(err);
-
-    res.status(500).json({
-      message: "Server Error"
-    });
-
-  }
+res.json({
+  token,
+  teamName: team.teamName,
+  teamId: team.teamId
 });
 
 
+} catch (err) {
+
+
+console.log(err);
+
+res.status(500).json({
+  message: "Server Error"
+});
+
+
+}
+
+});
+
 /* ======================================================
-   ✅ DASHBOARD (SECURE)
+DASHBOARD
 ====================================================== */
 
 router.get("/dashboard", teamAuth, async (req, res) => {
 
-  try {
+try {
 
-    const team = await Team.findById(req.team.teamId)
-      .select("-leader.password");
 
-    if (!team)
-      return res.status(404).json({
-        message: "Team not found"
-      });
+const team = await Team.findById(req.team.teamId)
+  .select("-leader.password");
 
-    res.json(team);
+if (!team)
+  return res.status(404).json({
+    message: "Team not found"
+  });
 
-  } catch (err) {
+res.json(team);
 
-    res.status(500).json({
-      message: "Server Error"
-    });
 
-  }
+} catch (err) {
+
+res.status(500).json({
+  message: "Server Error"
+});
+
+}
 
 });
 
-
 /* ======================================================
-   ✅ UPDATE ABSTRACT (Editable till March 10)
+UPDATE ABSTRACT
 ====================================================== */
 
 router.put("/update-abstract", teamAuth, async (req, res) => {
 
-  try {
+try {
 
-    const deadline = new Date("2026-03-18T23:59:59");
+const deadline = new Date("2026-03-18T23:59:59");
 
-    if (new Date() > deadline)
-      return res.status(403).json({
-        message: "Editing time expired"
-      });
+if (new Date() > deadline)
+  return res.status(403).json({
+    message: "Editing time expired"
+  });
 
-    const updated = await Team.findByIdAndUpdate(
-      req.team.teamId,
-      { abstract: req.body.abstract },
-      { new: true }
-    ).select("-leader.password");
+const updated = await Team.findByIdAndUpdate(
+  req.team.teamId,
+  { abstract: req.body.abstract },
+  { new: true }
+).select("-leader.password");
 
-    res.json(updated);
+res.json(updated);
 
-  } catch (err) {
 
-    res.status(500).json({
-      message: "Update failed"
-    });
+} catch (err) {
 
-  }
 
+console.log("UPDATE ERROR:", err);
+
+res.status(500).json({
+  message: "Update failed"
 });
 
 
+}
+
+});
+
 /* ======================================================
-   ✅ GET ALL TEAMS (STAFF DASHBOARD)
+STAFF TEAMS
 ====================================================== */
 
 router.get("/teams", async (req, res) => {
 
-  try {
+try {
 
-    const teams = await Team.find()
-      .select("-leader.password");
 
-    res.json(teams);
+const teams = await Team.find()
+  .select("-leader.password");
 
-  } catch (err) {
+res.json(teams);
+```
 
-    res.status(500).json({
-      message: "Failed to fetch teams"
-    });
+} catch (err) {
 
-  }
 
+res.status(500).json({
+  message: "Failed to fetch teams"
 });
 
 
+}
+
+});
+
 /* ======================================================
-   ✅ UPDATE TEAM STATUS (STAFF)
+UPDATE STATUS
 ====================================================== */
 
 router.put("/status/:id", async (req, res) => {
 
-  try {
+try {
 
-    const updated = await Team.findByIdAndUpdate(
-      req.params.id,
-      { status: req.body.status },
-      { new: true }
-    );
 
-    res.json(updated);
+const updated = await Team.findByIdAndUpdate(
+  req.params.id,
+  { status: req.body.status },
+  { new: true }
+);
 
-  } catch (err) {
+res.json(updated);
 
-    res.status(500).json({
-      message: "Status update failed"
-    });
 
-  }
+} catch (err) {
+
+```
+res.status(500).json({
+  message: "Status update failed"
+});
+
+
+}
 
 });
 
-const ExcelJS = require("exceljs");
-
 /* ======================================================
-   EXPORT TEAMS TO EXCEL
+EXPORT EXCEL
 ====================================================== */
 
 router.get("/export", async (req, res) => {
 
-  try {
+try {
 
-    const teams = await Team.find().select("-leader.password");
 
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Ideathon Teams");
+const teams = await Team.find().select("-leader.password");
 
-    worksheet.columns = [
-      { header: "Team ID", key: "teamId", width: 10 },
-      { header: "Team Name", key: "teamName", width: 25 },
-      { header: "Domain", key: "domain", width: 20 },
-      { header: "Problem Title", key: "problemTitle", width: 30 },
-      { header: "Status", key: "status", width: 15 }
-    ];
+const workbook = new ExcelJS.Workbook();
+const worksheet = workbook.addWorksheet("Teams");
 
-    teams.forEach(team => {
-      worksheet.addRow({
-        teamId: team.teamId,
-        teamName: team.teamName,
-        domain: team.domain,
-        problemTitle: team.problemTitle,
-        status: team.status
-      });
-    });
+worksheet.columns = [
+  { header: "Team ID", key: "teamId", width: 10 },
+  { header: "Team Name", key: "teamName", width: 25 },
+  { header: "Domain", key: "domain", width: 20 },
+  { header: "Problem Title", key: "problemTitle", width: 30 },
+  { header: "Status", key: "status", width: 15 }
+];
 
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    );
-
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=ideathon_teams.xlsx"
-    );
-
-    await workbook.xlsx.write(res);
-
-    res.end();
-
-  } catch (error) {
-
-    console.log(error);
-
-    res.status(500).json({
-      message: "Export failed"
-    });
-
-  }
-
+teams.forEach(team => {
+  worksheet.addRow({
+    teamId: team.teamId,
+    teamName: team.teamName,
+    domain: team.domain,
+    problemTitle: team.problemTitle,
+    status: team.status
+  });
 });
 
+res.setHeader(
+  "Content-Type",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+);
+
+res.setHeader(
+  "Content-Disposition",
+  "attachment; filename=teams.xlsx"
+);
+
+await workbook.xlsx.write(res);
+
+res.end();
+
+
+} catch (error) {
+
+
+console.log(error);
+
+res.status(500).json({
+  message: "Export failed"
+});
+
+
+}
+
+});
 
 module.exports = router;
