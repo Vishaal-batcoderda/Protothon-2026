@@ -18,7 +18,7 @@ localStorage.removeItem("teamToken");
 navigate("/student/login");
 };
 
-const deadline = new Date("2026-03-30T23:59:59+05:30");
+const deadline = new Date("2026-03-18T23:59:59+05:30");
 const isEditable = new Date() <= deadline;
 
 /* ================= FETCH TEAM ================= */
