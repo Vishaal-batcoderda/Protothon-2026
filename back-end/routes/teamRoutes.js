@@ -224,7 +224,7 @@ router.put("/update-abstract", teamAuth, async (req, res) => {
 
   try {
 
-    const deadline = new Date("2026-03-30T23:59:59");
+    const deadline = new Date("2026-03-18T23:59:59");
 
     if (new Date() > deadline)
       return res.status(403).json({
